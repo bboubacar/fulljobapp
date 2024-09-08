@@ -1,0 +1,45 @@
+.new-user {
+    padding: $xlPadding $defaultPadding;
+    max-width: 480px;
+    margin: 0 auto;
+
+    @include loginInscriptionInput();
+    .new-user-container{
+        @include inputStyle2(100%, $inputHeight, $items-radius);
+        padding-bottom: $largePadding;
+        position: relative;
+
+        @include loading();
+
+        .new-user-title{
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .server-err{
+            text-align: center;
+            color: $warning-color;
+        }
+
+        .input-container{
+            div{
+                input{
+                    padding-left: $largePadding;
+                }
+            }
+            
+        }
+    }
+}
+
+@media (max-width: $mobileWidth){
+    .new-user{
+        .new-user-container{
+            .new-user-title{
+                font-size: 2rem;
+                width: 100%;
+            }
+        }
+    }
+}

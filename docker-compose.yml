@@ -1,0 +1,45 @@
+version: "3.8"
+services:
+    mysql:
+        image: mysql:8
+        container_name: MySql
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: offres_emploi
+            MYSQL_USER: bcr
+            MYSQL_PASSWORD: bcr
+        volumes:
+            - dbdata:/var/lib/mysql
+        networks:
+            - app-network
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        container_name: phpmyadmin
+        environment:
+            PMA_HOST: mysql
+            MYSQL_ROOT_PASSWORD: root
+        ports:
+            - "8081:80"
+    frontend:
+        build: ./jobapp
+        container_name: frontendtest
+        ports:
+            - "5173:5173"
+        volumes:
+            - ./jobapp:/app
+            - /app/node_modules
+    api:
+        build: ./emplois
+        container_name: apitest
+        ports:
+            - "8080:80"
+        volumes:
+            - ./emplois:/var/www/html/
+        networks:
+            - app-network
+volumes:
+    dbdata:
+
+networks:
+    app-network:
+        driver: bridge

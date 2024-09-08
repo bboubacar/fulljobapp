@@ -1,0 +1,174 @@
+.listes-offres{
+    @include flex();
+    color: $white-color;
+
+    .filtres{
+        padding: $xlPadding $largePadding $xxlPadding $largePadding;
+        @include flex(column);
+        row-gap: 2rem;
+        color: $jeans-color;
+        box-shadow: $cardShadow;
+        min-width: 300px;
+        margin-bottom: 5px;
+        height: fit-content;
+        position: relative;
+
+        .reset{
+            @include formSubmitBtn();
+            font-size: .9rem;
+            position: absolute;
+            top: 0;
+            right: $largePadding;
+        }
+
+        @include rangeInput();
+
+        .range-wrap:has(input[name="experience"]){
+            margin-bottom: 1rem;
+        }
+
+        .range-wrap{
+            font-size: 1.5rem;
+
+            .range-value{
+                span{
+                    top: 60px;
+                }
+            }
+            
+        }
+
+        .filtres-liste{
+            width: 100%;
+
+            .select-container{
+                @include flex(column);
+                font-size: 1.5rem;
+                row-gap: .3rem;
+                cursor: pointer;
+                position: relative;
+
+                .type{
+                    @include flex();
+                    justify-content: space-between;
+                    column-gap: 2rem;
+                    align-items: center;
+                    transition: .25s;
+                    border-top-left-radius: $items-radius;
+                    border-top-right-radius: $items-radius;
+                    padding: 3px 0 3px 10px;
+                    background-color: $light-blue;
+
+                    svg{
+                        font-size: 2rem;
+                        color: $jeans-color;
+                    }
+                }  
+
+                .dropdown-container{
+                    background-color: $white-color;
+                    color: $jeans-color;
+                    border-bottom-left-radius: $items-radius;
+                    border-bottom-right-radius: $items-radius;
+                    @include flex(column);
+                    height: auto;
+                    transition: $defautDuration;
+                    overflow-y: hidden;
+                    position: absolute;
+                    top: 70px;
+                    left: 0;
+                    width: 100%;
+                    z-index: 1;
+                    scale: 1 0;
+                    transform-origin: top;
+                    box-shadow: $shadowBorder;
+                    
+                    .option{
+                        padding: $defaultPadding;
+                        transition: $defautDuration;
+    
+                        &:hover{
+                            background-color: $light-blue;
+                            color: $white-color;
+                        }
+                    }
+                }
+
+                .open-dropdown{
+                    scale: 1 1;
+                }
+            }
+        }
+    }
+    
+    .search-results{
+        padding: 0 0 $xlPadding $paddingX;
+        width: calc(100% - 285px);
+        position: relative;
+
+        @include search-container();
+        .search-container{
+            max-width: 100%;
+        }
+
+        .results{
+            margin-top: 1.5rem;
+            color: $jeans-color;
+            @include flex(column);
+            row-gap: 1rem;
+            position: relative;
+
+            .result-nbre{
+                font-size: 1.3rem;
+                opacity: .8;
+                margin-bottom: 1.5rem;
+            }
+
+            @include offres-results();
+            .offres-results{ 
+                cursor: pointer;
+                transition: hover $defautDuration;
+                text-decoration: none;
+                color: $jeans-color;
+
+                &:hover{
+                    box-shadow: 0px 0px 3px 0px $jeans-color;
+                }
+            }
+
+            @include loading();
+
+            .loading-container{
+                position: absolute;
+                background-color: $white-color;
+
+                svg{
+                    color: $jeans-color;
+                    font-size: 1.5rem;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: $tabletteMaxWidth){
+    .listes-offres{
+        flex-direction: column;
+        padding-top: 30px;
+
+        .filtres{
+            box-shadow: none;
+            padding: 0 0 $largePadding 0;
+
+            .reset{
+                top: -50px;
+                right: 0;
+            }
+        }
+
+        .search-results{
+            width: 100%;
+            padding: 40px 0 $xlPadding;
+        }
+    }
+}

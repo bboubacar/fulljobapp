@@ -1,0 +1,76 @@
+.offre-details{
+    max-width: $smallTabletteMaxWidth;
+    margin: 0 auto;
+    top: 0;
+    color: $jeans-color;
+    font-size: 1.4rem;
+    @include flex(column);
+    padding: $paddingX $largePadding $xlPadding $paddingX;
+    row-gap: .5rem;
+    background-color: $white-color;
+
+    img{
+        height: 150px;
+        width: 150px;
+    }
+
+    .already{
+        text-align: center;
+        color: $warning-color;
+    }
+
+    img{
+        align-self: center;
+    }
+
+    .titre{
+        font-weight: bold;
+        font-size: 2rem
+    }
+
+    .postuler-btn{
+        @include formSubmitBtn($defaultPadding, $xlPadding, $btns-bg);
+        width: 100%;
+        text-align: center
+    }
+
+    form{
+        @include flex(column);
+        row-gap: .5rem;
+        margin-top: 2rem;
+
+        textarea{
+            resize: none;
+            @include inputItemStyle(150px);
+            border: none;
+            box-shadow: $cardShadow;
+            padding: $largePadding;
+
+            &:focus{
+                outline: none;
+            }
+        }
+    }
+
+    @include loading();
+    .loading-container{
+        position: fixed;
+
+        svg{
+            position: relative;
+        }
+    }
+}
+
+@media (max-width: $tabletteMaxWidth){
+    .offre-details{
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+@media (max-width: $smallTabletteMaxWidth){
+    .offre-details{
+        padding-left: $defaultPadding;
+    }
+}

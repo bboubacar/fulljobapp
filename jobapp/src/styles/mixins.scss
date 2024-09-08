@@ -1,0 +1,1152 @@
+@mixin flex($direction:row){
+    display: flex;
+    flex-direction: $direction;
+}
+
+@mixin addShadowBorder($color, $width: 0, $height: .05rem){
+    &:before{
+        content: "";
+        height: $height;
+        width: $width;
+        background-color: $color;
+        box-shadow: 0px 0px 1px $jeans-color;
+        border-radius: 10px;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        transition: .25s;
+    }
+}
+
+@mixin borderAnimation($color){
+    @include addShadowBorder($color);
+
+    &:hover:before{
+        width: 100%;
+        left: 0%;
+    }
+}
+
+@mixin formSubmitBtn($pdTopBtm: 3px, $pdLftRgt: $defaultPadding, $bg: $white-color){
+    padding: $pdTopBtm $pdLftRgt;
+    font-weight: bold;
+    color: $jeans-color;
+    margin-top: 1rem;
+    width: fit-content;
+    display: inline-block;
+    box-shadow: $shadowBorder;
+    transition: $defautDuration;
+    cursor: pointer;
+    background-color: $bg;
+    font-size: 1.2rem;
+
+    &:hover{
+        color: $white-color;
+        background-color: $light-blue; 
+    }
+}
+
+@mixin inputItemStyle($inputHeight, $inputRadius: 5px){
+    width: 100%;
+    height: $inputHeight;
+    font-size: 1.5rem;
+    box-shadow: $loginBorder;
+    background-color: $white-color;
+}
+
+@mixin resizeCategorieChild(){
+    max-width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    text-align: left;
+    column-gap: 2rem;
+    row-gap: 1rem;
+    
+    h3{
+        width: 100%;
+        line-height: 2rem;
+    }
+}
+
+@mixin inputStyle2($width, $inputHeight, $inputRadius){
+    .input-container{
+        position: relative;
+        width: $width;
+        @include flex(column);
+        row-gap: .5rem;
+
+        label{
+            font-size: 1.4rem;
+            @include flex(column);
+
+            span{
+                &:last-child{
+                    color: $warning-color;
+                    font-size: 1rem;
+                }
+            }
+        }
+
+        textarea, input{
+            border: none;
+
+            &:focus{
+                outline: none;
+            }
+        }
+
+        textarea{
+            resize: none;
+            @include inputItemStyle(200px, $inputRadius);
+        }
+
+        input{
+            @include inputItemStyle($inputHeight, $inputRadius);
+        }
+
+        .input-btn{
+            @include flex();
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            width: 50px;
+            background-color: rgba($light-blue, .5);
+            height: 100%;
+        }
+    }
+}
+
+@mixin loginInscriptionInput(){
+    .login-container, .new-user-container, .creation-success{
+        padding: 20px 30px 50px;
+        box-shadow: $loginBorder;
+
+        .email-input, .password-input, .nom-input, .prenom-input, .rpwd-input {
+            margin-bottom: 1.5rem;
+
+            div{
+                position: relative;
+                input{
+                    padding: 5px 20px 5px 60px;
+                    font-size: 1.2rem;  
+                    transition: .25s;
+                    box-shadow: $loginBorder;
+                }
+
+                svg{
+                    opacity: .7;
+                }
+
+                &:focus-within input, &:focus-within svg{
+                    opacity: 1;
+                }
+
+            }
+        }
+
+        .forget-pwd, .connexion, .incription{
+            font-size: 1.2rem;
+            transition: .25s;
+            padding-top: .5rem;
+            cursor: pointer;
+
+            a{
+                cursor: pointer;
+                display: inline-block;
+                font-style: italic;
+                color: $jeans-color;
+                text-decoration: none;
+                position: relative;
+                @include addShadowBorder($jeans-color, 100%); 
+                font-size: 1.3rem;
+                transition: $defautDuration;
+                
+                &:hover{
+                    color: $light-blue;
+                    @include addShadowBorder($light-blue, 100%);
+                }
+            }
+        }
+
+        .seconnecter-btn, .incription-btn{
+            @include formSubmitBtn($defaultPadding, $defaultPadding, $btns-bg);
+            border: none;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
+            width: 100%;
+
+            a{
+                text-decoration: none;
+            }
+        }
+
+        .connexion, .incription{
+            display: block;
+            margin: 1rem auto 0 auto;
+            text-align: center;
+        }
+    }
+    .creation-success{
+        background-color: $white-color;
+        box-shadow: none;
+
+        .seconnecter-btn{
+            border-color: $jeans-color;
+        }
+    }
+}
+
+@mixin verticalAlign(){
+    position: absolute;
+    width: 100%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@mixin truncateText(){
+    text-overflow: ellipsis;
+    overflow: hidden; 
+    width: 160px; 
+    height: 1.2em; 
+    white-space: nowrap;
+}
+
+@mixin loading(){
+    .loading-container{
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        left: 0;
+        top: 0;
+        background-color: rgba($jeans-color, .9);
+        @include flex();
+        justify-content: center;
+        align-items: center;
+        z-index: 10;
+
+        svg{
+            color: $white-color;
+            font-size: 2rem;
+
+            margin-right: 7px;
+            top: 2px;
+            animation: spin 1s infinite linear;
+        }
+        
+        @keyframes spin {
+            from {
+                transform: scale(1) rotate(0deg);
+            }
+            to {
+                transform: scale(1) rotate(360deg);
+            }
+        }
+    }
+}
+
+@mixin selectOptions(){
+    .select-options{
+        position: relative;
+
+        label{
+            margin-bottom: .5rem;
+        }
+
+        .select{
+            background-color: $white-color;
+            color: $jeans-color;
+            padding: 5px 10px;
+            font-size: 1.2rem;
+            border-top-right-radius: 5px;
+            border-top-left-radius: 5px;
+            cursor: pointer;
+            position: relative;
+            margin-top: .5rem;
+
+            &::before{
+                position: absolute;
+                height: 100%;
+                content: "<";
+                top: 0;
+                right: $defaultPadding;
+                color: $jeans-color;
+                @include flex();
+                align-items: center;
+                rotate: -90deg;
+                font-size: 1.3rem;
+                font-weight: bold;
+            }
+        }
+
+        .select-container{
+            background-color: white;
+            margin-top: 3px;
+            border-bottom-right-radius: 5px;
+            border-bottom-left-radius: 5px;
+            max-height: 100px;
+            overflow-y: scroll;
+            scrollbar-width: none;
+            scale: 1 0;
+            transform-origin: top;
+            transition: $defautDuration;
+            z-index: 1;
+            position: absolute;
+            width: 100%;
+            box-shadow: $shadowBorder;
+            
+            p{
+                font-size: 5rem !important;
+            }
+
+            span{
+                display: block;
+                padding: $defaultPadding;
+                color: $jeans-color;
+                cursor: pointer;
+
+                &:hover{
+                    background-color: $light-blue;
+                    color: $white-color;
+                }
+            }
+        }
+        
+        .open-options{
+            scale: 1 1;
+        }
+    }
+
+    @media (max-width: $tabletteMaxWidth){
+        .select-options{
+            width: 100%;
+        }
+    }
+}
+
+@mixin avatar(){
+    .avatar{
+        @include flex(column);
+        justify-content: center;
+        align-items: center;
+        row-gap: .5rem;
+        position: relative;
+
+        div{
+            font-size: 1.2rem;
+            color: $danger-color;
+            margin-top: .2rem;
+        }
+
+        img, .select-avatar{
+            height: 120px;
+            width: 120px;
+            object-fit: cover;
+        }
+
+        .select-avatar{
+            position: absolute;
+            background-color: rgba($jeans-color, .5);
+            color: $white-color;
+            font-weight: bold;
+            bottom: 0;                
+
+            label{
+                margin-bottom: 0;
+                height: 100%;
+                width: 100%;
+                @include flex();                
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+            }
+            
+            input{
+                display: none;
+            }
+        }
+    }
+}
+
+@mixin profile(){
+    .profile{
+        position: relative;
+        max-width: $profileWidth;
+        min-width: $profileWidth; 
+        background:  linear-gradient(90deg, rgba(98,166,235,1) 0%, rgba(20,41,62,0.804359243697479) 35%, rgba(98,166,235,1) 100%);
+        color: $white-color;
+        padding: $xlPadding $defaultPadding 20px $largePadding;
+        height: fit-content;
+        border-bottom: 3px solid $white-color;
+
+        @include loading();
+
+        div.taille{
+            font-size: 1rem;
+            text-align: center;
+        }
+
+        .edit-dots{
+            position: absolute;
+            top: 15px;
+            right: $paddingX;
+            cursor: pointer;
+            @include flex();
+            column-gap: 2rem;
+
+            svg{
+                font-size: 1.8rem;
+            }
+            
+        }
+        
+        .description{
+            margin: 1.5rem 0 1rem 0;
+            @include flex(column);
+            row-gap: 1rem;
+
+            .name{
+                @include flex();
+                column-gap: 1rem;
+                justify-content: center;
+                font-size: 1.4rem;
+            }
+    
+            .profession, .domaines, .responsabilite, .cv{
+                text-align: center;
+                font-size: 1.4rem;
+                text-align: left;
+                line-height: 1.5rem;
+            }
+            
+            .cv{
+                div.taille{
+                    text-align: left;
+                }
+
+                .file-error{
+                    color: $danger-color;
+                    font-size: 1.1rem;
+                }
+
+                div.titre{
+                    input{
+                        display: none;
+                    }
+
+                    div.file, div.choisir-pdf{
+                        color: $white-color;
+                        margin-top: .3rem;
+                        *{
+                            color: $white-color
+                        }
+                        
+                    }
+
+                    .choisir-pdf{
+
+                        .choix{
+                            color: $jeans-color;
+                            background-color: $white-color;
+                            padding: 3px 10px;
+                            opacity: .8;
+                            border-radius: $items-radius;
+                            width: fit-content;
+                            cursor: pointer;
+                            font-size: 1.1rem;
+                        }
+                    }
+                }
+            }
+        }
+
+        .adresse-container{
+            @include flex(column);
+            row-gap: 2.5rem;
+            margin-top: 2.5rem;
+            font-size: 1.3rem;
+
+            .adresse, a, p{
+                @include flex();
+                column-gap: 1rem;
+                align-items: center;
+            }
+
+            .adresse{
+                .content-text{
+                    @include flex(column);
+                    row-gap: .5rem;
+                }
+            }
+
+            a{
+                color: $white-color;
+                text-decoration: none;
+                
+                span{
+                    width: fit-content;
+                    position: relative;
+                   
+                }
+
+                &:hover span{
+                    @include addShadowBorder($white-color, 100%);
+                }
+            }
+
+            svg{
+                font-size: 1.5rem
+            }
+        }
+
+        .error{
+            font-size: 1.1rem;
+            color: $danger-color;
+            margin-top: .2rem;
+        }
+
+        @include avatar();
+
+        form{
+
+            label{
+                text-align: left;
+                display: block;
+                width: 100%;
+                margin-bottom: .5rem;
+            }
+
+            input{
+                display: block;
+                width: 100%;
+                opacity: .9;
+                border-radius: 5px;
+                padding: 5px $defaultPadding;
+                font-size: 1rem;
+                margin-top: .5rem;
+
+                &:focus{
+                    outline: none;
+                }
+            }
+
+            @include selectOptions();
+
+            div:has(input) {
+                width: 100%;
+            }
+
+            .name{
+                flex-wrap: wrap;
+                row-gap: 1rem;
+            }
+        }
+
+        form:has(input){
+            .adresse-container{
+                margin-top: 1rem;
+                row-gap: 1rem;
+            }
+        }
+    }
+
+    @media (max-width: $max-win-width){
+        .profile{
+            padding-right: $defaultPadding;
+            padding-left: $defaultPadding;
+        }
+    }
+
+    @media (max-width: $tabletteMaxWidth){
+        .profile{
+            max-width: 100%;
+            form{
+                @include flex();
+                column-gap: 2rem;
+                flex-wrap: wrap;
+
+                .avatar{
+                    margin-bottom: 1.5rem;
+                    img, .edit-avatar{
+                        height: 150px;
+                        width: 150px;
+                    }
+                }
+
+                .description{
+                    margin: $defaultPadding 0 0;
+                }
+
+                .adresse-container{
+                    width: 100%;
+                    flex-direction: row;
+                    flex-wrap: wrap;
+                    column-gap: 2rem;
+                    margin-top: 0.5rem;
+                    row-gap: 1.5rem;
+
+                    .adresse{
+                        flex-direction: row;
+                        .content-text{
+                            flex-direction: row;
+                            column-gap: 1rem;
+                            flex-wrap: wrap;
+                        }
+
+                        a{
+                            display: inline-block;
+                        }
+                    }
+                }
+            }
+            .adresse-container{
+                .adresse, a{
+                    column-gap: .5rem;
+                }
+            }
+        }
+    }
+
+    @media (max-width: $mobileWidth){
+        .profile{
+            form{
+                flex-direction: column;
+                align-items: center;
+                row-gap: 1rem;
+
+                .avatar{
+                    margin-bottom: 0;
+                }
+
+                .description{
+                    width: 100%;
+
+                    .profession, .responsabilite{
+                        width: 100%;
+                        p{
+                            margin: 0 auto;
+                            text-align: center;
+                        }
+                    }
+                }
+            }
+            .adresse-container{
+                row-gap: 2rem;
+            }
+        }
+    }
+}
+
+@mixin add-new-btn(){
+    .add-new{
+        padding: 0 0 $defaultPadding 0;
+        font-size: 1.7rem;
+        text-align: right;
+        @include flex();
+        column-gap: 2rem;
+        justify-content: flex-end;
+        margin-bottom: 1rem;
+
+        svg{
+            cursor: pointer;
+        }
+    }
+}
+
+@mixin add-dash-form(){
+    .add-dash-form{ 
+        @include flex();
+        justify-content: space-between;
+        align-items: flex-end;
+        flex-wrap: wrap;
+        row-gap: 1rem;
+        scale: 1 0;
+        transform-origin: top;
+        height: 0;
+        margin-bottom: 0;
+        transition: $defautDuration;
+
+        label{
+            font-size: 1.2rem;
+            width: calc(50% - 2rem);
+
+            input, textarea{
+                display: block;
+                width: 100%;
+                font-size: 1.3rem;
+                padding: 5px $defaultPadding;
+                border: none;
+                box-shadow: $shadowBorder;
+                resize: none;
+                margin-top: .3rem;
+
+                &:focus{
+                    outline: none;
+                }
+            }
+
+            &:has(textarea){
+                width: 100%;
+            }
+
+            div{
+                color: $danger-color;
+                font-size: .9rem;
+            }
+        }
+    }
+
+    .open-form{
+        scale: 1 1;
+        height: 100%;
+        margin-bottom: 2rem;
+    }
+
+    @media (max-width: $smallTabletteMaxWidth){
+        .add-dash-form{
+            label{
+                width: 100%;
+                font-size: 1.2rem;
+
+                input, textarea{
+                    font-size: 1.2rem;
+                }
+            }
+        }
+    }
+}
+
+@mixin open-delete(){
+    .edit-dots{
+        position: absolute;
+        right: $largePadding;
+        top: 5px;
+        font-size: 2rem;
+        cursor: pointer;
+    }
+
+    .edit-delete{
+        background-color: $white-color;
+        position: absolute;
+        top: 30px;
+        right: $largePadding;
+        border-radius: $items-radius;
+        border: 1px solid $light-blue;
+        scale: 1 0;
+        transform-origin: top;
+        transition: $defautDuration;
+        z-index: 1;
+
+        span{
+            display: block;
+            font-size: 1.4rem;
+            padding: 3px 30px 3px $defaultPadding;
+            cursor: pointer;
+            transition: $defautDuration;
+
+            &:hover{
+                background-color: $light-blue;
+                color: $white-color;
+
+                &:last-child{
+                    background-color: $warning-color;
+                }
+            }
+        }
+    }
+
+    .open-edit-delete{
+        scale: 1 1;
+    }
+}
+
+@mixin items(){
+    width: 100%;
+    @include flex();
+    justify-content: space-between;
+    flex-wrap: wrap;
+    row-gap: 1.5rem;
+
+    .item{
+        width: calc(50% - 1rem);
+        position: relative;
+        line-height: 1.4;
+
+        .submit-btns{
+            .contacter{
+                width: 100%;
+            }
+        }
+    }
+
+    @media (max-width: $desktopMinWidth){
+        .item{
+            width: 100%;
+        }
+    }
+
+    @media (max-width: $tabletteMaxWidth){
+        .item{
+            width: calc(50% - .5rem)
+        }
+    }
+
+    @media (max-width: $smallTabletteMaxWidth){
+        row-gap: 1rem;
+        .item{
+            width: 100%;
+         }
+    }
+
+}
+
+@mixin submit-btns(){
+    .submit-btns{
+        @include flex();
+        justify-content: space-between;
+        flex-wrap: wrap;
+        margin-top: $defaultPadding;
+
+        div{
+            padding: 0 $defaultPadding;
+            border-radius: $items-radius;
+            transition: $defautDuration;
+            cursor: pointer;
+            text-align: center;
+
+            &:hover{
+                color: $white-color;
+            }
+        }
+
+        .parcours{
+            @include formSubmitBtn($smallestPadding, $defaultPadding, $btns-bg);
+            text-align: center;
+            width: 100%;
+        }
+
+        input{
+            border: none;
+        }
+
+        .contacter, .valider, input{
+            @include formSubmitBtn($smallestPadding, $defaultPadding, $btns-bg);
+        }
+
+        .rejeter, .invalider, .cancel{
+            @include cancelDeleteBtn();
+        }
+
+        @media (max-width: $smallTabletteMaxWidth){
+            justify-content: space-around;
+            column-gap: 1rem;
+    
+            .contacter, .valider, .rejeter, .invalider, .cancel, input{
+                width: 100%;
+            }
+        }
+    }
+}
+
+@mixin candidatItem(){
+    .item{
+        box-shadow: $shadowBorder;
+        padding: $defaultPadding;
+        font-size: 1.4rem;
+        line-height: 1.6rem;
+        @include flex(column);
+        justify-content: flex-end;
+
+        h2{
+            font-size: 1.5rem;
+        }
+
+        .date{
+            font-size: 1.2rem;
+            font-weight: bold;
+            opacity: .75;
+            flex-grow: 1;
+        }
+
+        @include submit-btns()
+    }
+
+    @media (max-width: $smallTabletteMaxWidth){
+        .item{
+            width: 100%;
+        }
+    }
+
+    @media (max-width: $mobileWidth){
+        .item{           
+            .loading-container{
+                position: absolute;
+            }
+        }
+    }
+}
+
+$offresInputHeight: 3rem;
+$searchWidtn: 50px;
+@mixin search-container(){
+    .search-container{
+        @include flex();
+        justify-content: flex-end;
+        width: 100%;
+        max-width: 994px;
+        flex-wrap: wrap;
+        box-shadow: 0px 3px 0px 0px($jeans-color, .5);
+        @include inputStyle2(auto, $offresInputHeight, 0);
+
+        &::before{
+            content: attr(data-error);
+            font-size: 1.1rem;
+            color: $danger-color;
+            width: 100%;
+            margin-bottom: 5px;
+        }
+
+        input{
+            padding: $defaultPadding $largePadding;
+            @include truncateText();
+            font-size: 1.5rem;
+        }
+
+        .search-input{
+            width: calc(65% - $searchWidtn);
+        }
+
+        .location-input{
+            width: 35%;
+        }
+
+        .search-btn{
+            @include flex();
+            justify-content: center;
+            align-items: center;
+            width: $searchWidtn;
+            background-color: rgba($light-blue, .5);
+            height: $offresInputHeight;
+            color: $jeans-color;
+            font-weight: bold;
+            transition: .25s;
+            cursor: pointer;
+
+            span{
+                display: none;
+            }
+
+            svg{
+                display: block;
+            }
+
+            &:hover{
+                background-color: $light-blue;
+                color: $white-color;
+            }
+            
+        }
+        
+    }
+
+    @media (max-width: $smallTabletteMaxWidth){
+       @include search-on-small()
+    }
+}
+
+@mixin search-on-small(){
+    .search-container{
+        flex-direction: column;
+        row-gap: 1rem;
+        box-shadow: none;
+
+        &::before{
+            margin-bottom: -10px;
+        }
+
+        .search-input, .location-input, .search-btn{
+            width: 100%;
+        }
+
+        .search-btn{
+            span{
+                display: block;
+            }
+
+            svg{
+                display: none;
+            }
+        }
+    }
+}
+
+@mixin rangeInput(){
+    .range-wrap{
+        width: 100%;
+        position: relative;
+
+        .range-value{
+            position: relative;
+
+            span{
+                text-align: center;                
+                color: $jeans-color;
+                font-size: 1rem;
+                display: block;
+                position: absolute;
+                border-radius: 6px;
+                top: 45px;
+            }
+        }
+
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            
+            // Chrome
+            &::-webkit-slider-runnable-track{
+                height: 4px;
+                cursor: pointer;
+                background: $light-blue;
+            }
+
+            // Firefox
+            &::-moz-range-track{
+                height: 4px;
+                cursor: pointer;
+                background: $light-blue;
+            }
+    
+            // Chrome
+            &::-webkit-slider-thumb {
+                height: 20px;
+                width: 20px;
+                border-radius: 50%;
+                background: $light-blue;
+                cursor: pointer;
+                -webkit-appearance: none;
+                appearance: none;
+                margin-top: -8px;
+                position: relative;
+                transition: $defautDuration;
+
+                &:active, &:hover{
+                    scale: 1.5;
+                }
+            }
+
+            &::-moz-range-thumb{
+                height: 20px;
+                width: 20px;
+                border-radius: 50%;
+                background: $light-blue;
+                cursor: pointer;
+                -webkit-appearance: none;
+                appearance: none;
+                margin-top: -8px;
+                position: relative;
+                transition: $defautDuration;
+
+                &:active, &:hover{
+                    scale: 1.2;
+                }
+            }
+        }
+    }
+}
+
+@mixin offres-results(){
+    .offres-results{ 
+        width: 100%;
+        box-shadow: $shadowBorder;
+        padding: $largePadding $defaultPadding;
+        position: relative;
+
+        &:hover{
+            box-shadow: 0px 0px 3px 0px $jeans-color;
+        }
+
+        //Open delete
+        @include open-delete();
+
+        img{
+            float: left;
+            margin-right: 1rem;
+        }
+        
+        .titre{
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .statut{
+            font-weight: bold;
+            font-style: italic;
+            text-decoration: underline;
+        }
+
+        *{
+            letter-spacing:normal;
+        }
+
+        span{
+            display: block;
+            font-size: 1.2rem;
+            opacity: .8;
+            line-height: 1.6rem;
+            
+        }
+
+        .description{
+            font-size: 1.3rem;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2; /* Limite à 2 lignes */
+            overflow: hidden;
+            text-overflow: ellipsis; /* Ajoute les points de suspension */
+        }
+        
+        .details{
+            .titreGras{
+                font-weight: bold;
+                font-size: 1.2rem;
+            }
+        }
+
+        .svg-container{
+            @include flex(column);
+            row-gap: 1rem;
+            cursor: pointer;
+            justify-content: center;
+
+            svg:last-child{
+                color: $danger-color;
+            }
+        }
+    }
+
+    @media (max-width: $mobileWidth){
+        .offres-results{ 
+            img{
+                float:none;
+                margin-right: 0;
+                display: block;
+                margin: 0 auto;
+                margin-bottom: 1rem;
+            }   
+            .titre{
+                text-align: center;
+            } 
+        }
+    }
+}
+
+@mixin cancelDeleteBtn(){
+    @include formSubmitBtn($smallestPadding, $defaultPadding, $warning-color);
+    background-color: rgba($warning-color, .5);;
+
+    &:hover{
+        background-color: rgba($warning-color, 1);
+    }
+}

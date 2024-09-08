@@ -1,0 +1,40 @@
+$jeans-color: #14293E;
+$white-color: #FFF;
+$light-blue: #62A6EB;
+$header-bg-color: rgba($light-blue, .96);
+$danger-color: #db1414;
+$warning-color: #e44d1a;
+$btns-bg: rgba($light-blue, .6);
+
+$shadowBorder: 0px 0px .08rem 0px $jeans-color;
+$loginBorder: 0px 0px .1rem 0px $jeans-color;
+$shadowBottom: 0px 1px 1px 0px $jeans-color;
+$cardShadow: 0px 0px 3px 0px $jeans-color;  
+
+$items-radius: 5px; 
+
+$vhPaddingY: 4vh;
+$paddingX: 30px;
+$largePadding: 70px $paddingX 50px;
+$smallestPadding: 5px;
+$defaultPadding: 10px;
+$mediumPadding: 15px;
+$largePadding: 20px;
+$xlPadding: 50px;
+$xxlPadding: 100px;
+$search-input-radius: 50px;
+
+$btn-border: 1px solid $white-color;
+$defautDuration: .25s;
+
+$header-height: 100px;
+$desktopMinWidth: 1200px;
+$tabletteMaxWidth: 994px;
+$smallTabletteMaxWidth: 768px;
+$mobileWidth: 480px;
+$max-win-width: 1600px;
+
+$profileWidth: 300px;
+
+$dashboardTab: "experiences", "competences", "formations", "candidatures";
+$recruteurdashTab: "offres", "candidatsOffre", "rechercher"; 

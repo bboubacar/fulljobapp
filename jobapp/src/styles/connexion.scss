@@ -1,0 +1,68 @@
+$inputHeight: 3rem;
+
+.login-user{
+    padding: 5vh $defaultPadding;
+    max-width: 480px;
+    margin: 0 auto;
+
+    .login-container{
+        position: relative;
+
+        .login-icon{
+            font-size: 7rem;
+            text-align: center;
+    
+            svg{
+                opacity: .1;
+            }
+        }
+
+        .incorrect-id{
+            color: $warning-color;
+            text-align: center
+        }
+        
+        @include inputStyle2(100%, $inputHeight, $items-radius);
+        @include loading(); 
+        .loading-container{
+            z-index: 2;
+        }
+    
+        .email-input, .pwd-input{
+
+            input:focus {
+                
+                & ~ .login-input-btn{
+                    background-color: $light-blue;
+                    color: $white-color;
+                }
+                
+            }
+
+            .login-input-btn{
+                top: 0;
+                left: 0;
+                transition: .25s;
+            }
+        }
+
+        .forget-pwd{
+            text-align: right;
+            margin-bottom: 1.5rem;
+        }
+    }
+}
+
+@media (max-width: $tabletteMaxWidth){
+    .login-user{
+        padding-top: 5vh;
+        padding-bottom: 5vh;
+    }
+}
+
+@media (max-width: $mobileWidth){
+    .login-user{
+        padding-left: $smallestPadding;
+        padding-right: $smallestPadding;
+    }
+}

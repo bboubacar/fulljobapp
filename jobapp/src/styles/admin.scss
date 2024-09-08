@@ -1,0 +1,159 @@
+.admin{
+    font-size: 21px;
+    line-height: 1.4;
+    padding: 0 0 $xlPadding 0;
+
+    .error{
+        color: $warning-color;
+    }
+
+    .admin-content{
+        @include selectOptions();
+
+        h1{
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .select-options{
+            max-width: 768px;
+            margin: 0 auto 3rem auto;
+            .select{
+                box-shadow: $shadowBorder;
+                font-size: 1.4rem;
+            }
+
+            .select-container{
+                max-height: 150px;
+
+                span.option{
+                    padding: 5px $defaultPadding;
+                }
+            }
+        }
+
+        .items{
+            @include candidatItem();
+            @include items(); 
+
+            .item{
+                @include open-delete();
+                position: relative;
+
+                    .logo-siret{
+                    img{
+                        height: 60px;
+                        width: 60px;
+                        float: left;
+                    }
+
+                    div{
+                        width: calc(100% - 100px);
+                        margin-left: 10px;
+                        height: fit-content;
+                        display: inline-block;
+                    }
+                }
+            }
+        }
+
+        @include add-new-btn();
+        @include add-dash-form();
+
+        .entreprises{
+            .items{
+                .item{
+                    justify-content: flex-start;
+                    padding-top: $largePadding;
+                }
+            }
+            .open-form{
+                position: relative;
+                z-index: 1;
+                .select-options{
+                    margin: 0;
+                    width: calc(50% - 2rem);
+                    font-size: 1.2rem;
+
+                    .select{
+                        font-size: 1.5rem;
+                    }
+                }   
+
+                .logo-nom{
+                    @include flex();
+                    flex-wrap: wrap;
+                    width: 100%;
+                    align-items: center;
+                    justify-content: space-between;
+
+                    label{
+                        width: calc(100% - 270px);
+                    }
+
+                    @include avatar();
+                    .avatar{
+                        img{
+                            width: 200px;
+                            height: 200px;
+                        }
+                        .select-avatar{
+                            width: 200px;
+                            height: 200px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @include loading();
+    .loading-container{
+        position: fixed;
+    }
+}
+
+@media (max-width: $desktopMinWidth){
+    .admin{
+        line-height: 1.4;
+        .admin-content{
+            .items{
+                .item{
+                    width: calc(50% - 1rem);
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: $smallTabletteMaxWidth){
+    .admin{
+        font-size: 21px;
+        padding: 0;
+        .admin-content{
+            .entreprises{
+                .open-form{
+                    .select-options{
+                        width: 100%;
+                    }
+
+                    .logo-nom{
+                        flex-direction: column;
+                        row-gap: 2rem;
+    
+                        label{
+                            width: 100%;
+                        }
+                    }
+                }
+            }
+
+            .items{
+                .item{
+                    width: 100%;
+                }
+            }
+        }
+    }
+}

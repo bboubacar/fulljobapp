@@ -1,0 +1,26 @@
+@include loginInscriptionInput();
+.creation-success{
+    padding: $xlPadding $defaultPadding;
+    @include flex(column);
+    text-align: center;
+    row-gap: 5rem;
+    background-color: $white-color;
+    h1{
+        font-size: 2.5rem;
+        color: $jeans-color;
+    }
+
+    a{
+        text-decoration: none;
+        max-width: 20rem;
+        align-self: center;
+    }
+}
+
+@media (max-width: $smallTabletteMaxWidth){
+    .creation-success{
+        h1{
+            font-size: 2rem;
+        }
+    }
+}

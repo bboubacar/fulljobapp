@@ -1,0 +1,184 @@
+.candidat{
+    @include flex();
+
+    //profile
+    @include profile();
+
+    .contents{
+        padding: 0 0 $largePadding $largePadding;
+        width: calc(100% - $profileWidth);
+
+        .main-tabs{
+            @include flex();
+
+            @each $tab in $dashboardTab {
+                .tab-#{$tab} {
+                    font-size: 1.3rem;
+                    padding: $defaultPadding $largePadding;
+                    box-shadow: $shadowBorder;
+                    text-transform: capitalize;
+                    width: calc(100% / 3);
+                    text-align: center;
+                    cursor: pointer;
+        
+                    &.active-tab{
+                        position: relative;
+                        @include addShadowBorder($light-blue, 100%, .2rem);
+                    }
+                }
+            }
+        }
+
+        .tabs-contents{
+            padding: 15px 0;
+
+            @include add-new-btn(); 
+
+            @each $tab in $dashboardTab {
+                .content-#{$tab}{
+                    display: none;
+                    line-height: 1.6rem;
+                    font-size: 1rem;
+                    row-gap: .5rem;
+
+                    @include add-dash-form();
+
+                    .open-add{
+                        scale: 1 1;
+                        height: 100%;
+                        margin-bottom: 2rem;
+                    }
+        
+                    .experience, .competence, .formation, .candidature{
+                        position: relative;
+                        margin-bottom: 1rem;
+
+                        &:last-child{
+                            margin-bottom: 0;
+                        }
+
+                        //Open delete
+                        @include open-delete();
+        
+                        .details{
+                            font-size: 1.4rem;
+                            line-height: 1.3;
+                            .titreGras{
+                                font-weight: bold;
+                                letter-spacing: .05rem;
+                            }
+
+                            .infos{
+                                margin-top: .5rem;
+                                display: block;
+                            }
+                        }
+                    }
+                    .items{
+                        @include candidatItem();
+                        row-gap: 0;
+                    }
+
+                    .items:has(.candidature){
+                        @include items();
+                    }
+                }
+            }
+
+            .active-content{
+                @include flex(column);
+            }
+
+            @include loading();
+            .loading-container{
+                position: fixed;
+            }
+        }
+        
+    }
+    
+}
+
+@media (max-width: $desktopMinWidth){
+    .candidat{
+        padding: 0 $defaultPadding 0 3px;
+
+        .contents{
+            .main-tabs{
+                @each $tab in $dashboardTab{
+                    .tab-#{$tab}{
+                        padding-left: $defaultPadding;
+                        padding-right: $defaultPadding;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: $tabletteMaxWidth){
+    .candidat{
+        flex-direction: column;
+        padding: 0;
+
+        .contents{
+            width: 100%;
+            padding-left: $defaultPadding;
+            padding-right: $defaultPadding;
+
+            .main-tabs{
+                @each $tab in $dashboardTab{
+                    .tab-#{$tab}{
+                        padding: $defaultPadding;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: $smallTabletteMaxWidth){
+    .candidat{
+        .contents{
+            padding: 0;
+            .main-tabs{
+                margin-top: 1rem;
+                flex-direction: column;
+                @each $tab in $dashboardTab {
+                    .tab-#{$tab}{
+                        width: 100%;
+                        padding: $defaultPadding 5px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: $mobileWidth){
+    .candidat{
+        .contents{
+            .main-tabs{
+                flex-direction: column;
+                @each $tab in $dashboardTab {
+                    .tab-#{$tab}{
+                        width: 100%;
+                    }
+                }
+            }
+
+            .tabs-contents{
+                @each $tab in $dashboardTab {
+                    .content-candidatures.active-content{
+                        .candidature{
+                            .btns{
+                                justify-content: space-between;
+                            }
+                        }
+                        
+                    }
+                }
+            }
+        }
+    }
+}

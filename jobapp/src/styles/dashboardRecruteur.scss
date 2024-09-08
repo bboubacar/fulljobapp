@@ -1,0 +1,416 @@
+
+.recruteur{
+    @include flex();
+    flex-wrap: wrap;
+
+    .entreprise{
+        margin: .2rem 0;
+        width: 100%;
+        position: relative;
+        @include flex();
+        justify-content: center;
+        align-items: center;
+        column-gap: 1.5rem;
+        padding: 1rem $largePadding;
+
+        .apropos{
+            @include flex(column);
+            row-gap: .25rem;
+
+            .nom{
+                font-size: 1.5rem;
+                letter-spacing: .05rem;
+                font-weight: bold;
+            }
+
+            .domaine{
+                font-size: 1.3rem;
+            }
+
+            .details{
+                line-height: 1.3rem;
+            }
+        }
+
+        .add-entreprise{
+            width: 100%;
+            padding: 0 $defaultPadding;
+            padding-bottom: 1rem;
+            
+            .title{
+                text-align: center;
+                font-weight: bold;
+                font-size: 1.5rem;
+                margin-bottom: 1rem;
+                line-height: 1.8rem
+            }
+
+            form{
+                @include selectOptions();
+                max-width: 480px;
+                margin: 0 auto;
+                @include flex(column);
+                row-gap: 1rem;
+                font-size: 1.4rem;
+
+                .select-options{
+                    label{
+                        display: block;
+                        margin-bottom: .5rem;
+                    }
+                    .select{
+                        background-color: $light-blue;
+                        font-size: 1.3rem;
+                    }
+
+                    .select-container{
+
+                        .option{
+                            font-size: 1.3rem;
+                        }
+                    }
+                }
+
+                @include submit-btns();
+            }
+        }
+
+        .enattente{
+            font-size: 1.5rem;
+            text-align: center;
+        }
+
+        @include loading();
+        .loading-container{
+            position: fixed;
+        }
+
+        .edit-btns{
+            font-size: 1.5rem;
+            margin-left: 2rem;
+            cursor: pointer;
+        }
+    }
+
+    //profile
+    @include profile();
+
+    .contents{
+        padding: $largePadding 0 $xlPadding $largePadding;
+        width: calc(100% - $profileWidth);
+
+        .main-tabs{
+            @include flex();
+
+            @each $tab in $recruteurdashTab {
+                .tab-#{$tab} {
+                    font-size: 1.5rem;
+                    padding: $defaultPadding $largePadding;
+                    box-shadow: $shadowBorder;
+                    text-transform: capitalize;
+                    width: calc(100% / 3);
+                    text-align: center;
+                    cursor: pointer;
+
+                    &.active-tab{
+                        position: relative;
+                        @include addShadowBorder($light-blue, 100%, .2rem);
+                    }
+                }
+            }
+        }
+
+        .tabs-contents{
+            padding: 30px 0;
+
+            @include add-new-btn();
+            .add-dash-form{
+                @include selectOptions();
+                .select-options{
+                    width: calc(50% - 2rem);
+                    font-size: 1rem;
+
+                    .select{
+                        box-shadow: 0px 0px 1.3px 0px $jeans-color;
+                        padding: 3px $defaultPadding;
+                    }
+
+                    .select-container{
+                        max-height: 150px;
+                    }
+
+                    .open-options{
+                        box-shadow: 0px 0px 1.3px 0px $jeans-color;
+                    
+                        .option{
+                            padding-top: 5px;
+                            padding-bottom: 5px;
+                        }
+                    }
+                }
+            }
+
+            @each $tab in $recruteurdashTab {
+                .content-#{$tab}{
+                    font-size: 1.5rem;
+                    line-height: 1.6rem;
+                    @include flex(column);
+                    row-gap: 1rem;
+                    flex-wrap: wrap;
+                    justify-content: space-between;
+
+                    @include add-dash-form();
+
+                    @include offres-results();
+
+                    .offres-results{
+                        .recruteur-offre{
+                            .description{
+                                -webkit-line-clamp: unset;
+                            }
+                        }
+                    }
+
+                    .candidatures{
+                        position: relative;
+                        display: contents;
+                        *{
+                            letter-spacing: normal;
+                        }
+
+                        label{
+                            font-size: 1.5rem;
+                            display: inline-block;
+                            width: 100%;
+                            padding: 5px $defaultPadding 5px 5px;
+                            background-color: $light-blue;
+                            border-radius: $items-radius;
+                            position: relative;
+                            cursor: pointer;
+
+                            &::after{
+                                content: "<";
+                                position: absolute;
+                                right: $defaultPadding;
+                                top: 3px;
+                                rotate: -90deg;
+                                font-weight: bold;
+                            }
+
+                            input{
+                                display: none;
+                            }
+
+                            &:has(input:checked){
+                                & ~ .open-candidature{
+                                    scale: 1 1;
+                                    height: auto;
+                                    padding: $defaultPadding 1px 1px 1px;
+                                    @include flex();
+                                    column-gap: 1rem;
+                                    row-gap: 1rem;
+                                    flex-wrap: wrap;
+                                    padding-bottom: 1rem;
+        
+                                    .aucune-candidature{
+                                        text-align: center;
+                                    }
+        
+                                    svg{
+                                        margin-top: $defaultPadding;
+                                    }
+                                }
+
+                                
+                                &:has(+ .open-candidature){
+                                    &::after{
+                                        rotate: 90deg;
+                                    }
+                                }
+                            }
+                        }
+
+                        .candidature{
+                            scale: 1 0;
+                            transform-origin: top;
+                            height: 0;
+                            transition: $defautDuration;
+                            overflow-y: hidden;
+                            font-size: 1.5rem;
+
+                            svg{
+                                width: 100%;
+                                animation: spin 1s infinite linear;
+                                text-align: center;
+                            }
+
+                            .parcours{
+                                @include formSubmitBtn($smallestPadding, $defaultPadding, $btns-bg);
+                                width: 100%;
+                                text-align: center
+                            }
+                        } 
+                    }
+
+                    .items{
+                        @include candidatItem();
+                        @include items();
+                    }
+
+                    .recherche-candidats{
+                        @include search-container();
+
+                        .search-container{
+                            margin-bottom: 1.5rem;
+                        }
+
+                        .search-result{
+                            @include flex();
+                            column-gap: 1rem;
+                            row-gap: 1rem;
+                            flex-wrap: wrap;
+                            position: relative;
+                            padding: 1px;
+
+                            .loading-container{
+                                position: absolute;
+                                background-color: $white-color;
+    
+                                svg{
+                                    color: $jeans-color;
+                                    font-size: 1.5rem;
+                                }
+                            }
+
+                            .result-count{
+                                font-size: 1.2rem;
+                                opacity: .8;
+                                width: 100%;
+                            }
+                        }
+                    }
+                }
+            }
+
+            @include loading();
+            .loading-container{
+                position: fixed;
+            }
+        }
+    }
+
+    .desacitiver{
+        width: calc(100% - $profileWidth);
+        font-size: 1.5rem;
+        @include flex();
+        justify-content: center;
+        margin-top: 2rem;
+    }
+
+}
+
+@media (max-width: $desktopMinWidth){
+    .recruteur{
+        padding: 0 0 0 3px
+    }
+}
+
+@media (max-width: $tabletteMaxWidth){
+    .recruteur{
+        flex-direction: column;
+        padding: 0;
+
+        .desacitiver{
+            width: 100%;
+            margin-bottom: 2rem;
+        }
+
+        .contents{
+            width: 100%;
+            padding-left: $defaultPadding;
+            padding-right: $defaultPadding;
+        }
+    }
+}
+
+@media (max-width: $smallTabletteMaxWidth){
+    .recruteur{
+        .entreprise{
+            flex-direction: column;
+            row-gap: 1rem;
+
+            .enattente{
+                order: 2;
+            }
+
+            .edit-btns{
+                margin-left: 0;
+            }
+        }
+
+        .contents{
+            padding: 1rem 0;
+
+            .main-tabs{
+                flex-direction: column;
+
+                @each $tab in $recruteurdashTab{
+                    .tab-#{$tab}{
+                        width: 100%;
+                        padding-top: $largePadding;
+                        padding-bottom: $largePadding;
+                    }
+                }
+            }
+            .tabs-contents{
+    
+                @each $tab in $recruteurdashTab {
+                    .content-#{$tab}{
+                        .add-dash-form{
+                            .select-options{
+                                width: 100%;
+                            }
+                        }
+                    }
+                }
+            }   
+        }
+    }
+}
+
+@media (max-width: $mobileWidth){
+    .recruteur{
+       .entreprise{
+            .add-entreprise{
+                form{
+                    .submit-btns{
+                        flex-direction: column;
+                        input{
+                            width: 100%;
+                        }
+                        .cancel{
+                            width: 100%;
+                        }
+                    }
+                }
+            }
+       }
+
+       .contents{
+            .tabs-contents{
+                @each $tab in $recruteurdashTab {
+                    .content-#{$tab}{
+
+                        .candidatures{
+                            label{
+                                @include truncateText();
+                                width: 100%;
+                                height: 100%;
+                            }
+                        }
+                    }
+                }
+            }   
+        }
+    }
+}

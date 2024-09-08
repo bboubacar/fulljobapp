@@ -1,0 +1,158 @@
+header{
+    position: fixed;
+    width: 100%;
+    background-color: $header-bg-color;
+    left: 0;
+    z-index: 5;
+
+    .header-container{
+        height: $header-height;
+        padding: 0 $defaultPadding;
+        @include flex();
+        justify-content: space-between;
+        width: 100%;
+        max-width: $max-win-width;
+        margin: 0 auto;
+
+        .logo-container{
+            margin-top: $defaultPadding;
+            img{
+                width: 110px;
+                height: auto;
+            }
+        }
+    }
+
+    .nav-burger-menu{
+        display: none;
+    }
+
+    .menu-container{
+        @include flex();
+        align-items: flex-end;
+        padding-bottom: $defaultPadding;
+
+        nav{
+            @include flex();
+            column-gap: 2rem;
+
+            .menu-item{
+                position: relative;
+
+                a, span{
+                    color: $jeans-color;
+                    text-decoration: none;
+                    font-size: 1.3rem;
+                    cursor: pointer;
+                    font-weight: bold;
+                    @include borderAnimation($jeans-color);
+                }
+
+                .item{
+                    position: relative;
+                }
+
+                .sous-menu{
+                    position: absolute;
+                    background-color: $header-bg-color;
+                    right: -$defaultPadding;
+                    top: 35px;
+                    height: auto;
+                    overflow-y: hidden;
+                    transition: $defautDuration;
+                    z-index: -3;
+                    @include flex(column);
+                    padding: $largePadding $largePadding;
+                    row-gap: 1rem;
+                    scale: 1 0;
+                    transform-origin: top;
+
+                    a{
+                        display: inline-block;
+                        position: relative;
+                        width: fit-content;
+                    }
+                }
+
+                .open-sousMenu{
+                    scale: 1 1;
+                }
+            }
+
+            .menu-item:has(a.active) span, .item.active, a.active{
+                color: $jeans-color;
+                @include addShadowBorder($jeans-color, 100%);
+            }
+        }
+    }
+
+
+}
+
+@media (max-width: $smallTabletteMaxWidth){
+    header{
+        .header-container{
+            .logo-container{
+                margin-top: $defaultPadding;
+                img{
+                    width: 100px;
+                    height: auto;
+                }
+            }
+
+            .nav-burger-menu{
+                display: flex;
+                align-items: center;
+                color: $jeans-color;
+                font-size: 2rem;
+                cursor: pointer;
+            }
+    
+            .menu-container{
+                position: fixed;
+                min-height: 300px;
+                right: -200%;
+                top: $header-height;
+                padding-bottom: 0;
+                align-items: flex-start;
+                width: 250px;
+                background-color: $header-bg-color;
+                justify-content: center;
+                padding-top: 2rem;
+                transition: .5s;
+    
+                nav{
+                    flex-direction: column;
+                    align-items: center;
+                    row-gap: 1.5rem;
+    
+                    a{
+                        width: fit-content;
+                    }
+    
+                    .menu-item{
+                        text-align: center;
+                        .sous-menu{
+                            row-gap: $defaultPadding;
+                            padding: 0;
+                            background-color: transparent;
+    
+                            a{
+                                padding: 0;
+                            }
+                        }
+    
+                        .open-sousMenu{
+                            height: 80px;
+                        }
+                    }
+                    
+                }
+            }
+    
+            .open-menu{
+                right: 0;
+            }
+        }
+    }
+}

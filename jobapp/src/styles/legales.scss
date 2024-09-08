@@ -1,0 +1,14 @@
+main:has(.conditions), main:has(.politiques), main:has(.mentions){
+    padding-top: $largePadding;
+}
+
+.conditions, .politiques, .mentions{
+    font-size: 1.2rem;
+    line-height: 1.5;
+    .content{
+        margin-bottom: .8rem;
+        h1{
+            font-size: 2rem;
+        }
+    }
+}
