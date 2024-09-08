@@ -40,8 +40,11 @@ COPY --from=frontend-build /app/dist /var/www/html/frontend
 # Installer Supervisord pour gérer plusieurs processus
 RUN apt-get update && apt-get install -y supervisor
 
+# Créer un répertoire pour la configuration de Supervisord
+RUN mkdir -p /etc/supervisor/conf.d
+
 # Copier la configuration de Supervisord
-COPY ./supervisord.conf /etc/supervisor/supervisord.conf  # <-- Ajouter ici
+COPY ./supervisord.conf /etc/supervisor/supervisord.conf
 
 # Exposer les ports
 EXPOSE 80 5173
